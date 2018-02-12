@@ -1,19 +1,5 @@
-=begin
-  { name: 'Dr. Hannibal Lecter', cohort: :november },
-  { name: 'Darth Vader', cohort: :november },
-  { name: 'Nurse Ratched', cohort: :november },
-  { name: 'Michael Corleone', cohort: :november },
-  { name: 'Alex DeLarge', cohort: :november },
-  { name: 'The Wicked Witch of the West', cohort: :november },
-  { name: 'Terminator', cohort: :november },
-  { name: 'Freddy Krueger', cohort: :november },
-  { name: 'The Joker', cohort: :november },
-  { name: 'Joffrey Baratheon', cohort: :november },
-  { name: 'Norman Bates', cohort: :november }
-]
-=end
 
-
+# method to get students name from user
 def input_students
   students = []
 
@@ -28,16 +14,32 @@ def input_students
   students
 end
 
+# method to print header
 def print_header
   puts 'Students of Villian Academy'
   puts '---------------------------'
 end
 
+# method to print all students names and cohorts
+def print(students)
+  students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  end
+end
+
+# method to print all students names with number in front of them
+def print_with_numbers(students)
+  students.each_with_index do |student, index|
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  end
+end
+
+# method to print all students names starting with certain letter and cohorts
 def print_name_starting_with(students, letter)
-  student_names_with = []
-  students.each { |student| student_names_with << student if student[:name].start_with?(letter) }
-  student_names_with.each_with_index do |student, index|
-    puts "#{index + 1}. #{student[:name]} (#{student[:chort]} cohort)"
+  names_with = []
+  students.each { |student| names_with << student if student[:name].start_with?(letter) }
+  names_with.each_with_index do |student, index|
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 
   # redundant code below (prints without storing in array)
@@ -46,12 +48,17 @@ def print_name_starting_with(students, letter)
   # end
 end
 
-def print(students)
-  students.each_with_index do |student, index|
+# method to print all students names and cohort where name is < 12 letters
+def print_name_shorter_than_12_chars(students)
+  names_with_less_chars = []
+  students.each { |student| names_with_less_chars << student if student[:name].length < 12 }
+  names_with_less_chars.each_with_index do |student, index|
     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
+
+# method to print footer
 def print_footer(students)
   puts "Overall we have #{students.count} great students"
 end
@@ -59,8 +66,8 @@ end
 students = []
 students = input_students
 print_header
-puts 'Enter letter you wanna see students name starting from'
-letter = gets.chomp
-print_name_starting_with(students,letter)
-#print(students)
+print_name_starting_with(students,'a')
+print(students)
+print_with_numbers(students)
+print_name_shorter_than_12_chars(students)
 print_footer(students)
