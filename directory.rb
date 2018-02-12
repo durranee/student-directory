@@ -1,8 +1,7 @@
 
-# method to get students name from user
+#  Exercise 5 (getting more details) method to get students name from user
 def input_students
   students = []
-
 
   name = '-'
   until name.empty?
@@ -44,7 +43,7 @@ def print(students)
   end
 end
 
-# method to print all the details of students
+# Exercise 5: method to print all the details of students
 def print_with_all_details(students)
   students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
@@ -56,14 +55,14 @@ def print_with_all_details(students)
 end
 
 
-# method to print all students names with number in front of them
+# Exercise 1: method to print all students names with number in front of them
 def print_with_numbers(students)
   students.each_with_index do |student, index|
     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
-# method to print all students names starting with certain letter and cohorts
+# Exercise 2: method to print all students names starting with certain letter and cohorts
 def print_name_starting_with(students, letter)
   names_with = []
   students.each { |student| names_with << student if student[:name].start_with?(letter) }
@@ -77,7 +76,7 @@ def print_name_starting_with(students, letter)
   # end
 end
 
-# method to print all students names and cohort where name is < 12 letters
+# Exercise 3: method to print all students names and cohort where name is < 12 letters
 def print_name_shorter_than_12_chars(students)
   names_with_less_chars = []
   students.each { |student| names_with_less_chars << student if student[:name].length < 12 }
@@ -86,6 +85,7 @@ def print_name_shorter_than_12_chars(students)
   end
 end
 
+# Exercise 4: printing all students names and cohort without using .each()
 def print_all_without_each(students)
   index = 0
   while index < students.length
@@ -99,8 +99,8 @@ students = input_students
 print_header
 #print_name_starting_with(students,'a')
 # print(students)
-print_with_all_details(students)
+#print_with_all_details(students)
 #print_with_numbers(students)
 #print_name_shorter_than_12_chars(students)
-#print_all_without_each(students)
+print_all_without_each(students)
 print_footer(students)
