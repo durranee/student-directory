@@ -1,56 +1,64 @@
-
 #  Exercise 5 (getting more details) method to get students name from user
 def input_students
   students = []
 
   name = '-'
   until name.empty?
-    puts 'Enter names of the students'
+    puts ''
+    puts 'Enter name of the student'
     puts 'To finish, hit enter twice'
     name = gets.chomp
     break if name.empty?
-    p "Enter Hobbies: "
+    puts 'Enter Cohort'
+    cohort = gets.chomp
+    cohort = :february if cohort.empty?
+    puts 'Enter Hobbies'
     hobbies = gets.chomp
-    p 'Enter country: '
+    puts 'Enter country'
     country = gets.chomp
-    p 'Enter date of birth: '
+    puts 'Enter date of birth'
     dob = gets.chomp
-    p 'Enter height: '
+    puts 'Enter height'
     height = gets.chomp
 
-    students << { name: name, cohort: :november, hobbies: hobbies,
+    students << { name: name, cohort: cohort.to_sym, hobbies: hobbies,
                   country: country, dob: dob, height: height }
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} " +
+    ( students.count > 1 ? "students" : "student" )
   end
   students
 end
 
 # method to print header
 def print_header
-  puts 'Students of Villian Academy'
-  puts '---------------------------'
+  puts ''
+  puts ':::::::::Students of Villian Academy:::::::::'.center(70)
+  puts '-------------------'.center(70)
 end
 
 # method to print footer
 def print_footer(students)
-  puts "Overall we have #{students.count} great students"
+  puts "Overall we have #{students.count} great " +
+  (students.count > 1 ? "students" : "student")
 end
 
 # method to print all students names and cohorts
 def print(students)
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    puts "Name: #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
 # Exercise 5: method to print all the details of students
 def print_with_all_details(students)
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
-    puts "Hobbies: #{student[:hobbies]}"
-    puts "Country: #{student[:country]}"
-    puts "Date of birth: #{student[:dob]}"
-    puts "Height: #{student[:height]}"
+    puts "Name: #{student[:name]}".ljust(70)
+    puts "Cohort: #{student[:cohort]} cohort".ljust(70)
+    puts "Hobbies: #{student[:hobbies]}".ljust(70)
+    puts "Country: #{student[:country]}".ljust(70)
+    puts "Date of birth: #{student[:dob]}".ljust(70)
+    puts "Height: #{student[:height]}".ljust(70)
+    puts '---------------'.ljust(50)
   end
 end
 
@@ -95,12 +103,13 @@ def print_all_without_each(students)
 end
 
 students = []
-students = input_students
+
 print_header
+students = input_students
 #print_name_starting_with(students,'a')
 # print(students)
-#print_with_all_details(students)
+print_with_all_details(students)
 #print_with_numbers(students)
 #print_name_shorter_than_12_chars(students)
-print_all_without_each(students)
+#print_all_without_each(students)
 print_footer(students)
