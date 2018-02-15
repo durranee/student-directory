@@ -59,6 +59,7 @@ def print_by_cohorts
   end
 end
 
+# method to save student info to database.csv
 def save_students
   # opening database.csv file in write mode
   file = File.open("database.csv", "w")
@@ -70,11 +71,22 @@ def save_students
   file.close
 end
 
+# method to load student details from database.csv and load to @student var
+def load_students
+  file = File.open("database.csv", "r")
+  file.readlines.each do |line|
+  name, cohort = line.chomp.split(',')
+  @students << {name: name, cohort: cohort.to_sym}
+  end
+  file.close
+end
+
 # method to just print menu options
 def print_menu
   puts "1. Input students details"
   puts "2. Show students"
-  puts "3. Save the list to database.csv"
+  puts "3. Save student list to database.csv"
+  puts "4. Load student list from database.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -94,6 +106,8 @@ def process(selection)
     show_students
   when '3'
     save_students
+  when '4'
+    load_students
   when '9'
     exit # to terminate the program
   else
