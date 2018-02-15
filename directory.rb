@@ -4,15 +4,13 @@
 def input_students
   name = '-'
   until name.empty?
-    puts ''
-    puts 'Enter name of the student'
+    puts '\nEnter name of the student'
     puts 'To finish, hit enter twice'
     name = STDIN.gets.chomp
     break if name.empty?
     puts 'Enter Cohort'
     cohort = STDIN.gets.chomp
     cohort = :february if cohort.empty?
-
     @students << { name: name, cohort: cohort.to_sym }
     puts "Now we have #{@students.count} " +
     (@students.count > 1 ? 'students' : 'student')
@@ -85,7 +83,7 @@ def try_load_students
   else # if it doesn't exist
     # show little error message and tell user we've loaded our default file
     puts "Error! #{filename} doesn't exist."
-    puts "Loading default database..."
+    puts 'Loading default database...'
   end
 end
 
