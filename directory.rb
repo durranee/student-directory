@@ -40,14 +40,6 @@ def print_student_list
   puts ''
 end
 
-# Method to print all students details if name starts with certain letters
-def print_name_starting_with(letter)
-  @students.select! { |student| student[:name].start_with?(letter) }
-  @students.each_with_index do |student, index|
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-end
-
 # Method to print all students by cohorts
 def print_by_cohorts
   cohort_list = @students.collect { |student| student[:cohort] }
@@ -69,7 +61,7 @@ def save_students
     file.puts csv_line
   end
   file.close
-  puts '----- Success -----'
+  puts '----- Save Successful -----'
 end
 
 # method to load student details from database.csv and load to @student var
@@ -80,29 +72,40 @@ def load_students(filename = "database.csv")
   @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
+  puts '----- Database file load Successful -----'
 end
 
-#method to load database file on boot
+# method to load database file on boot
 def try_load_students
   filename = ARGV.first # checks if argrument given at command line
-  return if filename.nil? # get out of the method if it isn't given
-  # pretty much means that user wants us to create a default database file
+  load_students if filename.nil? # load default databse file if no args given
   if File.exists?(filename) # if file exists then load the file innit bro
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
-    puts "Sorry, #{filename} doesn't exist."
-    exit # quit the program
+    # show little error message and tell user we've loaded our default file
+    puts "Error! #{filename} doesn't exist."
+    puts "Loading default database..."
   end
 end
 
+# method to forward action on save/load database file
+def act_on_file(action)
+  puts "Please enter the database file name to #{action}"
+  puts "leave blank for default"
+  file_name = gets.chomp
+  file_name = 'database.csv' if file_name.empty?
+  action == 'save' ? save_students(file_name) : load_students(file_name)
+
+end
 
 # method to just print menu options
 def print_menu
   puts "1. Input students details"
   puts "2. Show students"
-  puts "3. Save student list to database.csv"
-  puts "4. Load student list from database.csv"
+  puts "3. Show students sorted by cohort"
+  puts "4. Load student list from database"
+  puts "5. Save student list to database"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -121,9 +124,11 @@ def process(selection)
   when '2'
     show_students
   when '3'
-    save_students
+    print_by_cohorts
   when '4'
-    load_students
+    act_on_file('load')
+  when '5'
+    act_on_file('save')
   when '9'
     exit # to terminate the program
   else
@@ -134,10 +139,11 @@ end
 # entry point to our program method invokes menu and selection methods
 def interactive_menu
   loop do
+    print_header
     print_menu
     process(STDIN.gets.chomp)
   end
 end
 
-try_load_students
+#try_load_students
 interactive_menu
