@@ -1,4 +1,5 @@
-#  Exercise 5 (getting more details) method to get students name from user
+
+#  method to get Input from user
 def input_students
   students = []
 
@@ -15,7 +16,7 @@ def input_students
 
     students << { name: name, cohort: cohort.to_sym }
     puts "Now we have #{students.count} " +
-    ( students.count > 1 ? "students" : "student" )
+    (students.count > 1 ? 'students' : 'student')
   end
   students
 end
@@ -30,7 +31,7 @@ end
 # method to print footer
 def print_footer(students)
   puts "Overall we have #{students.count} great " +
-  (students.count > 1 ? "students" : "student")
+  (students.count > 1 ? 'students' : 'student')
 end
 
 # method to print all students names and cohorts (with number before them)
@@ -39,7 +40,6 @@ def print(students)
     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
-
 
 # Method to print all students details if name starts with certain letters
 def print_name_starting_with(students, letter)

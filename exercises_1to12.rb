@@ -23,7 +23,8 @@ def input_students
 
     students << { name: name, cohort: cohort.to_sym, hobbies: hobbies,
                   country: country, dob: dob, height: height }
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} " +
+    (students.count > 1 ? 'students' : 'student')
   end
   students
 end
@@ -38,7 +39,7 @@ end
 # method to print footer
 def print_footer(students)
   puts "Overall we have #{students.count} great " +
-  (students.count > 1 ? "students" : "student")
+  (students.count > 1 ? 'students' : 'student')
 end
 
 # method to print all students names and cohorts
@@ -65,8 +66,7 @@ end
 
 # Exercise 3: method to print all students names and cohort where name is < 12 letters
 def print_name_shorter_than_12_chars(students)
-  names_with_less_chars = []
-  students.select! { |student|student[:name].length < 12 }
+  students.select! { |student| student[:name].length < 12 }
   students.each_with_index do |student, index|
     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
@@ -81,7 +81,7 @@ def print_all_without_each(students)
   end
 end
 
-# Exercise 5: method to print all the details of students
+# Exercise 5 part 2: method to print all the details of students
 def print_with_all_details(students)
   students.each do |student|
     puts "Name: #{student[:name]}".ljust(70)
@@ -98,10 +98,10 @@ students = []
 
 print_header
 students = input_students
-#print_name_starting_with(students,'a')
+# print_name_starting_with(students,'a')
 # print(students)
-#print_with_all_details(students)
-#print_with_numbers(students)
-#print_name_shorter_than_12_chars(students)
-#print_all_without_each(students)
+# print_with_all_details(students)
+# print_with_numbers(students)
+# print_name_shorter_than_12_chars(students)
+# print_all_without_each(students)
 print_footer(students)
