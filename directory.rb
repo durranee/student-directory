@@ -74,7 +74,7 @@ end
 
 # method to load student details from database.csv and load to @student var
 def load_students(filename = "database.csv")
-  file = File.open("filename", "r")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
   @students << {name: name, cohort: cohort.to_sym}
