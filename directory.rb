@@ -12,17 +12,8 @@ def input_students
     puts 'Enter Cohort'
     cohort = gets.chomp
     cohort = :february if cohort.empty?
-    puts 'Enter Hobbies'
-    hobbies = gets.chomp
-    puts 'Enter country'
-    country = gets.chomp
-    puts 'Enter date of birth'
-    dob = gets.chomp
-    puts 'Enter height'
-    height = gets.chomp
 
-    students << { name: name, cohort: cohort.to_sym, hobbies: hobbies,
-                  country: country, dob: dob, height: height }
+    students << { name: name, cohort: cohort.to_sym }
     puts "Now we have #{students.count} " +
     ( students.count > 1 ? "students" : "student" )
   end
@@ -42,63 +33,19 @@ def print_footer(students)
   (students.count > 1 ? "students" : "student")
 end
 
-# method to print all students names and cohorts
+# method to print all students names and cohorts (with number before them)
 def print(students)
-  students.each do |student|
-    puts "Name: #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-end
-
-# Exercise 5: method to print all the details of students
-def print_with_all_details(students)
-  students.each do |student|
-    puts "Name: #{student[:name]}".ljust(70)
-    puts "Cohort: #{student[:cohort]} cohort".ljust(70)
-    puts "Hobbies: #{student[:hobbies]}".ljust(70)
-    puts "Country: #{student[:country]}".ljust(70)
-    puts "Date of birth: #{student[:dob]}".ljust(70)
-    puts "Height: #{student[:height]}".ljust(70)
-    puts '---------------'.ljust(50)
-  end
-end
-
-
-# Exercise 1: method to print all students names with number in front of them
-def print_with_numbers(students)
   students.each_with_index do |student, index|
     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
-# Exercise 2: method to print all students names starting with certain letter and cohorts
+
+# Method to print all students details if name starts with certain letters
 def print_name_starting_with(students, letter)
-  names_with = []
-  students.each { |student| names_with << student if student[:name].start_with?(letter) }
-  names_with.each_with_index do |student, index|
+  students.select! { |student| student[:name].start_with?(letter) }
+  students.each_with_index do |student, index|
     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-
-  # redundant code below (prints without storing in array)
-  # students.each_with_index do |student, index|
-  #  puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name][0].start_with?(letter)
-  # end
-end
-
-# Exercise 3: method to print all students names and cohort where name is < 12 letters
-def print_name_shorter_than_12_chars(students)
-  names_with_less_chars = []
-  students.each { |student| names_with_less_chars << student if student[:name].length < 12 }
-  names_with_less_chars.each_with_index do |student, index|
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-end
-
-# Exercise 4: printing all students names and cohort without using .each()
-def print_all_without_each(students)
-  index = 0
-  while index < students.length
-    puts "#{index + 1}. #{students[index][:name]} (#{students[index][:cohort]} cohort)"
-    index += 1
   end
 end
 
@@ -106,10 +53,7 @@ students = []
 
 print_header
 students = input_students
-#print_name_starting_with(students,'a')
+# print_name_starting_with(students,'a')
 # print(students)
 print_with_all_details(students)
-#print_with_numbers(students)
-#print_name_shorter_than_12_chars(students)
-#print_all_without_each(students)
 print_footer(students)
