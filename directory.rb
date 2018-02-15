@@ -116,7 +116,6 @@ def show_students
 end
 
 # method to invoke methods upon as per selection
-
 def process(selection)
   case selection
   when '1'
@@ -145,5 +144,5 @@ def interactive_menu
   end
 end
 
-#try_load_students
+try_load_students
 interactive_menu
