@@ -39,14 +39,20 @@ end
 
 # method to print footer
 def print_footer(students)
-  puts "Overall we have #{students.count} great " +
-  (students.count > 1 ? 'students' : 'student')
+  if students.empty?
+    puts "Currently, there are no students on file"
+  else
+    puts "Overall we have #{students.count} great " +
+    (students.count > 1 ? 'students' : 'student')
+  end
 end
 
 # method to print all students names and cohorts
 def print(students)
-  students.each do |student|
-    puts "Name: #{student[:name]} (#{student[:cohort]} cohort)"
+  unless students.empty?
+    students.each do |student|
+      puts "Name: #{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
