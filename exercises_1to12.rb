@@ -1,4 +1,5 @@
 #  Exercise 5 (getting more details) method to get students name from user
+# Exercise 10 used .rstrip instead of chomp
 def input_students
   students = []
 
@@ -7,19 +8,19 @@ def input_students
     puts ''
     puts 'Enter name of the student'
     puts 'To finish, hit enter twice'
-    name = gets.chomp
+    name = gets.rstrip
     break if name.empty?
     puts 'Enter Cohort'
-    cohort = gets.chomp
+    cohort = gets.rstrip.to_sym
     cohort = :february if cohort.empty?
     puts 'Enter Hobbies'
-    hobbies = gets.chomp
+    hobbies = gets.rstrip
     puts 'Enter country'
-    country = gets.chomp
+    country = gets.rstrip
     puts 'Enter date of birth'
-    dob = gets.chomp
+    dob = gets.rstrip
     puts 'Enter height'
-    height = gets.chomp
+    height = gets.rstrip
 
     students << { name: name, cohort: cohort.to_sym, hobbies: hobbies,
                   country: country, dob: dob, height: height }
@@ -110,7 +111,7 @@ students = []
 print_header
 students = input_students
 # print_name_starting_with(students,'a')
-# print(students)
+print(students)
 # print_with_all_details(students)
 # print_with_numbers(students)
 # print_name_shorter_than_12_chars(students)
