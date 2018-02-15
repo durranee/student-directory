@@ -49,7 +49,18 @@ def print_name_starting_with(students, letter)
   end
 end
 
-students = []
+# Method to print all students by cohorts
+def print_by_cohorts(students)
+  cohort_list = students.collect { |student| student[:cohort] }
+  cohort_list.uniq.each do |cohort|
+    puts "\n::: #{cohort.to_s.capitalize} Cohort :::"
+    students.each do |student|
+      student[:cohort].eql?(cohort) ? (puts student[:name].to_s) : next
+    end
+  end
+end
+
+ students = []
 
 print_header
 students = input_students
