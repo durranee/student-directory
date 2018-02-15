@@ -50,26 +50,28 @@ def print_by_cohorts
 end
 
 # method to save student info to database.csv
-def save_students
+def save_students(filename = "database.csv")
   # opening database.csv file in write mode
-  file = File.open("database.csv", "w")
+  File.open("database.csv", "w") do |file|
   @students.each do |student|
     data = [student[:name],student[:cohort]]
     csv_line = data.join(',')
     file.puts csv_line
   end
-  file.close
+end
+  # file.close # used do end to open and close the file so this line is redundant
   puts '----- Save Successful -----'
 end
 
 # method to load student details from database.csv and load to @student var
 def load_students(filename = "database.csv")
-  file = File.open(filename, "r")
+  File.open(filename, "r") do |file|
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
   @students << {name: name, cohort: cohort.to_sym}
   end
-  file.close
+  # file.close # used do/end to open and close the file so this line is redundant
+end
   puts '----- Database file load Successful -----'
 end
 
