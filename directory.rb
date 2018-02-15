@@ -7,10 +7,10 @@ def input_students
     puts ''
     puts 'Enter name of the student'
     puts 'To finish, hit enter twice'
-    name = gets.chomp
+    name = STDIN.gets.chomp
     break if name.empty?
     puts 'Enter Cohort'
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     cohort = :february if cohort.empty?
 
     @students << { name: name, cohort: cohort.to_sym }
@@ -69,17 +69,33 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts '----- Success -----'
 end
 
 # method to load student details from database.csv and load to @student var
-def load_students
-  file = File.open("database.csv", "r")
+def load_students(filename = "database.csv")
+  file = File.open("filename", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
   @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
+
+#method to load database file on boot
+def try_load_students
+  filename = ARGV.first # checks if argrument given at command line
+  return if filename.nil? # get out of the method if it isn't given
+  # pretty much means that user wants us to create a default database file
+  if File.exists?(filename) # if file exists then load the file innit bro
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}"
+  else # if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit # quit the program
+  end
+end
+
 
 # method to just print menu options
 def print_menu
@@ -119,8 +135,9 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
+try_load_students
 interactive_menu
