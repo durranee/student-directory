@@ -1,4 +1,5 @@
 require 'csv'
+require 'fileutils'
 @students = []
 
 # method to add student hash to @students array
@@ -88,6 +89,8 @@ end
 
 # method to load database file on boot
 def try_load_students
+  # creates default db database.csv file if it doesn't exist already at the start
+  FileUtils.touch('database.csv') unless File.exist?('database.csv')
   filename = ARGV.first # checks if argrument given at command line
   if filename.nil? # load default databse file if no args given
     load_students
