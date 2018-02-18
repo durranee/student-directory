@@ -6,6 +6,7 @@ def add_to_students_array(name, cohort)
   @students << { name: name, cohort: cohort.to_sym }
 end
 
+# method to check if cohort is entered correctly and set default if empty
 def check_cohort(cohort_entered)
   cohorts = %w[Jan Feb Mar Apr May Jun July Aug Sep Oct Nov Dec]
   cohort_entered = 'Feb' if cohort_entered.empty?
